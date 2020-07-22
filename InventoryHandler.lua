@@ -2,6 +2,8 @@
 
 invHandler = {}
 
+component = require("component")
+
 inv = component.inventory_controller
 
 function invHandler.getItemName(slot)
