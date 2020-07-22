@@ -1,4 +1,5 @@
 r = require "robot"
+invHandler = require "inventoryHandler"
 
 distanceToMove = 10
 
