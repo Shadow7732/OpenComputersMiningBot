@@ -1,5 +1,5 @@
 r = require "robot"
-invHandler = require "inventoryHandler"
+invHandler = require "/scripts/miner/inventoryHandler"
 
 distanceToMove = 10
 
