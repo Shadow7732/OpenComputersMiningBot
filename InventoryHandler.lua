@@ -2,6 +2,8 @@
 
 invHandler = {}
 
+inv = component.inventory_controller
+
 function invHandler.getItemName(slot)
 	local item = inv.getStackInInternalSlot(slot)
 	if item then
@@ -14,7 +16,7 @@ end
 --checks if the given item is in the inventory and if yes returns the first corresponding slot
 function invHandler.containsItem(item)
 	for i=1, 16, 1 do
-		if item == invHelper.getItemName(i) then
+		if item == invHandler.getItemName(i) then
 			return i
 		end
 	end
@@ -27,7 +29,7 @@ end
 function invHandler.selectItemInInventory(item)
 	local flag = false
 	for i=1, 16, 1 do
-		if invHelper.getItemName(i) == item then
+		if invHandler.getItemName(i) == item then
 			r.select(i)
 			flag = true
 			break
@@ -63,7 +65,7 @@ function invHandler.transferAllItemsToChest()
 	for i=1, 16, 1 do
 		local flag = false
 		for _,v in ipairs(ignore) do
-			if invHelper.getItemName(i) == v then
+			if invHandler.getItemName(i) == v then
 				flag = true
 			end
 		end
@@ -85,14 +87,14 @@ function invHandler.dropGargabe(item, keepN)
 		for i=1, 16, 1 do
 			--if the stack is not safed yet
 			if itemStack == false then
-				if invHelper.getItemName(i) == item then
+				if invHandler.getItemName(i) == item then
 					if r.count(i) >= keepN then
 						itemStack = true
 					end
 				end
 			--if the stack is safed, drop the rest
 			else
-				if invHelper.getItemName(i) == item then
+				if invHandler.getItemName(i) == item then
 					r.select(i)
 					r.drop()
 				end
@@ -101,7 +103,7 @@ function invHandler.dropGargabe(item, keepN)
 	--drop all 'item' items
 	else
 		for i=1, 16, 1 do
-			if invHelper.getItemName(i) == item then
+			if invHandler.getItemName(i) == item then
 				r.select(i)
 				r.drop()
 			end
@@ -114,7 +116,7 @@ function invHandler.exchangeTool()
 	local tools = {'minecraft:diamond_pickaxe', 'minecraft:shovel'}
 	for _,tool in ipairs(tools) do
 		for i=1, 16, 1 do
-			if invHelper.getItemName(i) == tool then
+			if invHandler.getItemName(i) == tool then
 				r.select(i)
 				--swap the items
 				if inv.equip() then
@@ -128,7 +130,7 @@ end
 
 function invHandler.provideFuel()
 	if(g.count() < 10) then
-		local slot = invHelper.containsItem('minecraft:coal')
+		local slot = invHandler.containsItem('minecraft:coal')
 		if slot then
 			r.select(slot)
 			g.insert(64)
