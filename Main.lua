@@ -11,11 +11,29 @@ currentTunnelY = 1
 removeBlockSleepTime = 0.5
 
 while distanceToMove >= 0 do
+    if r.durability() == 0 or r.durability() == nil then
+
+		if invHandler.exchangeTool(tool) then
+            print("Tool was exchanged...")
+            
+		else
+			print("Error: No tool")
+			while r.durability() == 0 or r.durability() == nil do
+				os.sleep(5)
+            end
+            
+            print("Found a tool now, continuing...")
+            
+		end
+    end
+    
     while tunnelWidth > currentTunnelX do
         while tunnelHeight > currentTunnelY do
+
             if r.detectUp() == true then
                 r.swingUp()
             end
+
             os.sleep(removeBlockSleepTime)
             r.up()
             currentTunnelY = currentTunnelY + 1
@@ -27,14 +45,18 @@ while distanceToMove >= 0 do
                 currentTunnelY = currentTunnelY - 1
             end
         end
+
         r.turnRight()
+
         if r.detect() == true then
             r.swing()
+            os.sleep(removeBlockSleepTime)
         end
-        os.sleep(removeBlockSleepTime)
+        
         r.forward()
         currentTunnelX = currentTunnelX + 1
         r.turnLeft()
+        
     end
     
     if currentTunnelY == 1 then
