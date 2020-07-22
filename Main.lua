@@ -15,9 +15,8 @@ currentTunnelY = 1
 removeBlockSleepTime = 0.5
 
 while distanceToMove >= 0 do
-    if r.durability() == 0 or r.durability() == nil then
-
-		if invHandler.exchangeTool(tool) then
+if r.durability() == 0 or r.durability() == nil then
+	if invHandler.exchangeTool(tool) then
             print("Tool was exchanged...")
             
 		else
